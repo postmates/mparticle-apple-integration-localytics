@@ -1,7 +1,7 @@
 //
 //  MPKitLocalytics.m
 //
-//  Copyright 2015 mParticle, Inc.
+//  Copyright 2016 mParticle, Inc.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -16,10 +16,7 @@
 //  limitations under the License.
 //
 
-#if defined(MP_KIT_LOCALYTICS)
-
 #import "MPKitLocalytics.h"
-#import "MPEnums.h"
 #import "MPEvent.h"
 #import <CoreLocation/CoreLocation.h>
 #import "MPCommerceEvent.h"
@@ -29,6 +26,8 @@
 #import "MPTransactionAttributes+Dictionary.h"
 #import "MPProduct.h"
 #import "MPProduct+Dictionary.h"
+#import "mParticle.h"
+#import "MPKitRegister.h"
 #import "Localytics.h"
 
 @interface MPKitLocalytics() {
@@ -42,68 +41,84 @@
 
 @implementation MPKitLocalytics
 
++ (NSNumber *)kitCode {
+    return @84;
+}
+
++ (void)load {
+    MPKitRegister *kitRegister = [[MPKitRegister alloc] initWithName:@"Localytics" className:@"MPKitLocalytics" startImmediately:YES];
+    [MParticle registerExtension:kitRegister];
+}
+
 - (NSMutableDictionary *)customDimensions {
     if (_customDimensions) {
         return _customDimensions;
     }
-    
+
     _customDimensions = [[NSMutableDictionary alloc] initWithCapacity:1];
     return _customDimensions;
 }
 
 #pragma mark MPKitInstanceProtocol methods
 - (instancetype)initWithConfiguration:(NSDictionary *)configuration startImmediately:(BOOL)startImmediately {
-    self = [super initWithConfiguration:configuration startImmediately:startImmediately];
+    NSAssert(configuration != nil, @"Required parameter. It cannot be nil.");
+    self = [super init];
     if (!self) {
         return nil;
     }
-    
+
     if (!configuration[@"appKey"]) {
         return nil;
     }
-    
-    NSArray *dimensionsMapping = configuration[@"customDimensions"];
-    if (dimensionsMapping) {
-        for (NSDictionary *dimensionMap in dimensionsMapping) {
-            NSRange dimensionRange = [dimensionMap[@"value"] rangeOfString:@"Dimension "];
-            
-            if (dimensionRange.location != NSNotFound) {
-                NSString *key = dimensionMap[@"map"];
-                NSNumber *value = @([[dimensionMap[@"value"] substringFromIndex:NSMaxRange(dimensionRange)] integerValue]);
-                
-                if (key && value) {
-                    self.customDimensions[key] = value;
+
+    NSString *customDimensions = configuration[@"customDimensions"];
+    if (customDimensions && (NSNull *)customDimensions != [NSNull null] && customDimensions.length > 2) {
+        NSError *error = nil;
+        NSArray *dimensionsMapping = [NSJSONSerialization JSONObjectWithData:[customDimensions dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
+
+        if (dimensionsMapping && !error) {
+            for (NSDictionary *dimensionMap in dimensionsMapping) {
+                NSRange dimensionRange = [dimensionMap[@"value"] rangeOfString:@"Dimension "];
+
+                if (dimensionRange.location != NSNotFound) {
+                    NSString *key = dimensionMap[@"map"];
+                    NSNumber *value = @([[dimensionMap[@"value"] substringFromIndex:NSMaxRange(dimensionRange)] integerValue]);
+
+                    if (key && value) {
+                        self.customDimensions[key] = value;
+                    }
                 }
             }
+        } else {
+            NSLog(@"mParticle -> Invalid 'customDimensions' configuration.");
         }
     }
-    
+
     multiplyByOneHundred = [configuration[@"trackClvAsRawValue"] caseInsensitiveCompare:@"true"] == NSOrderedSame;
 
-    frameworkAvailable = YES;
-    
+    _configuration = configuration;
+    _started = startImmediately;
+
     if (startImmediately) {
         [self start];
     }
-    
+
     return self;
 }
 
 - (void)start {
     [Localytics autoIntegrate:self.configuration[@"appKey"] launchOptions:self.launchOptions];
-    
-    started = YES;
-    self.forwardedEvents = YES;
-    self.active = YES;
+
+    _started = YES;
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSDictionary *userInfo = @{mParticleKitInstanceKey:@(MPKitInstanceLocalytics),
-                                   mParticleEmbeddedSDKInstanceKey:@(MPKitInstanceLocalytics)};
-        
+        NSDictionary *userInfo = @{mParticleKitInstanceKey:[[self class] kitCode],
+                                   mParticleEmbeddedSDKInstanceKey:[[self class] kitCode]};
+
         [[NSNotificationCenter defaultCenter] postNotificationName:mParticleKitDidBecomeActiveNotification
                                                             object:nil
                                                           userInfo:userInfo];
-        
+
         [[NSNotificationCenter defaultCenter] postNotificationName:mParticleEmbeddedSDKDidBecomeActiveNotification
                                                             object:nil
                                                           userInfo:userInfo];
@@ -112,14 +127,14 @@
 
 - (MPKitExecStatus *)beginSession {
     [Localytics openSession];
-    
+
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceLocalytics) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
 
 - (MPKitExecStatus *)endSession {
     [Localytics closeSession];
-    
+
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceLocalytics) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
@@ -134,15 +149,15 @@
             NSString *eventName = [NSString stringWithFormat:@"eCommerce - %@", [[commerceEvent actionNameForAction:commerceEvent.action] capitalizedString]];
             long revenue = lround([commerceEvent.transactionAttributes.revenue doubleValue] * (multiplyByOneHundred ? 100 : 1));
             revenue = commerceEvent.action == MPCommerceEventActionPurchase ? : labs(revenue) * -1;
-            
+
             [Localytics tagEvent:eventName attributes:commerceEventAttributes customerValueIncrease:@(revenue)];
             [execStatus incrementForwardCount];
         }
             break;
-            
+
         default: {
             NSArray *expandedInstructions = [commerceEvent expandedInstructions];
-            
+
             for (MPCommerceEventInstruction *commerceEventInstruction in expandedInstructions) {
                 [self logEvent:commerceEventInstruction.event];
                 [execStatus incrementForwardCount];
@@ -150,7 +165,7 @@
         }
             break;
     }
-    
+
     return execStatus;
 }
 
@@ -160,7 +175,7 @@
     } else {
         [Localytics tagEvent:event.name];
     }
-    
+
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceLocalytics) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
@@ -168,56 +183,56 @@
 - (MPKitExecStatus *)logLTVIncrease:(double)increaseAmount event:(MPEvent *)event {
     long amount = lround(increaseAmount * (multiplyByOneHundred ? 100 : 1));
     [Localytics tagEvent:event.name attributes:event.info customerValueIncrease:@(amount)];
-    
+
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceLocalytics) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
 
 - (MPKitExecStatus *)logScreen:(MPEvent *)event {
     [Localytics tagScreen:event.name];
-    
+
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceLocalytics) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
 
 - (MPKitExecStatus *)setDebugMode:(BOOL)debugMode {
     [Localytics setLoggingEnabled:debugMode];
-    
+
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceLocalytics) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
 
 - (MPKitExecStatus *)setDeviceToken:(NSData *)deviceToken {
     [Localytics setPushToken:deviceToken];
-    
+
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceLocalytics) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
 
 - (MPKitExecStatus *)receivedUserNotification:(NSDictionary *)userInfo {
     [Localytics handlePushNotificationOpened:userInfo];
-    
+
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceLocalytics) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
 
 - (MPKitExecStatus *)setLocation:(CLLocation *)location {
     [Localytics setLocation:location.coordinate];
-    
+
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceLocalytics) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
 
 - (MPKitExecStatus *)setOptOut:(BOOL)optOut {
     [Localytics setOptedOut:optOut];
-    
+
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceLocalytics) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
 
 - (MPKitExecStatus *)setUserAttribute:(NSString *)key value:(NSString *)value {
     NSNumber *customDimensionValue = self.customDimensions[key];
-    
+
     if (customDimensionValue) {
         [Localytics setValue:value forCustomDimension:[customDimensionValue integerValue]];
     } else {
@@ -229,7 +244,7 @@
             [Localytics setValue:value forProfileAttribute:key];
         }
     }
-    
+
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceLocalytics) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
@@ -237,21 +252,21 @@
 - (MPKitExecStatus *)incrementUserAttribute:(NSString *)key byValue:(NSNumber *)value {
     MPKitExecStatus *execStatus;
     NSNumber *customDimensionValue = self.customDimensions[key];
-    
+
     if (customDimensionValue) {
         execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceLocalytics) returnCode:MPKitReturnCodeCannotExecute];
         return execStatus;
     }
-    
+
     [Localytics incrementValueBy:[value integerValue] forProfileAttribute:key];
-    
+
     execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceLocalytics) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
 
 - (MPKitExecStatus *)removeUserAttribute:(NSString *)key {
     [Localytics deleteProfileAttribute:key];
-    
+
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceLocalytics) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
 }
@@ -261,11 +276,11 @@
         case MPUserIdentityCustomerId:
             [Localytics setCustomerId:identityString];
             break;
-            
+
         case MPUserIdentityEmail:
             [Localytics setCustomerEmail:identityString];
             break;
-            
+
         default: {
             NSArray *identifierStrings = @[@"Other", @"CustomerId", @"Facebook", @"Twitter", @"Google", @"Microsoft", @"Yahoo", @"Email", @"Alias", @"FacebookCustomAudienceId"];
             NSString *identifier = identifierStrings[(NSInteger)identityType];
@@ -279,5 +294,3 @@
 }
 
 @end
-
-#endif
