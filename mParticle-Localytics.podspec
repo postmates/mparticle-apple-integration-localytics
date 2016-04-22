@@ -24,4 +24,5 @@ Pod::Spec.new do |s|
         'LIBRARY_SEARCH_PATHS' => '$(inherited) $(PODS_ROOT)/Localytics/**',
         'OTHER_LDFLAGS' => '$(inherited) -l"Localytics"'
     }
+    s.ios.user_target_xcconfig = { 'OTHER_LDFLAGS' => '$(inherited) -l"Localytics" -framework "CoreLocation"' }
 end
