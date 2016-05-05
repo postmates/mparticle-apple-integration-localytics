@@ -17,8 +17,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#ifdef COCOAPODS
 #import "MPKitExecStatus.h"
 #import "MPKitProtocol.h"
+#else
+#import <mParticle_Apple_SDK/mParticle.h>
+#endif
 
 @interface MPKitLocalytics : NSObject <MPKitProtocol>
 

@@ -17,17 +17,20 @@
 //
 
 #import "MPKitLocalytics.h"
-#import "MPEvent.h"
 #import <CoreLocation/CoreLocation.h>
-#import "MPCommerceEvent.h"
-#import "MPCommerceEvent+Dictionary.h"
-#import "MPCommerceEventInstruction.h"
-#import "MPTransactionAttributes.h"
-#import "MPTransactionAttributes+Dictionary.h"
-#import "MPProduct.h"
-#import "MPProduct+Dictionary.h"
-#import "mParticle.h"
-#import "MPKitRegister.h"
+#ifdef COCOAPODS
+    #import "MPEvent.h"
+    #import "MPCommerceEvent.h"
+    #import "MPCommerceEvent+Dictionary.h"
+    #import "MPCommerceEventInstruction.h"
+    #import "MPTransactionAttributes.h"
+    #import "MPTransactionAttributes+Dictionary.h"
+    #import "MPProduct.h"
+    #import "MPProduct+Dictionary.h"
+    #import "mParticle.h"
+    #import "MPKitRegister.h"
+#endif
+
 #import "Localytics.h"
 
 @interface MPKitLocalytics() {
