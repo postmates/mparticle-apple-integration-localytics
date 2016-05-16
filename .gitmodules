@@ -1,0 +1,3 @@
+[submodule "Carthage/Checkouts/mparticle-apple-sdk"]
+	path = Carthage/Checkouts/mparticle-apple-sdk
+	url = https://github.com/mparticle/mparticle-apple-sdk.git
