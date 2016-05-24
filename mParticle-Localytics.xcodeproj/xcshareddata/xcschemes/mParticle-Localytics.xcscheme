@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E5CAE11E1CEA6CA400DDAEED"
-               BuildableName = "mParticle-Localytics.framework"
+               BuildableName = "mParticle_Localytics.framework"
                BlueprintName = "mParticle-Localytics"
                ReferencedContainer = "container:mParticle-Localytics.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E5CAE11E1CEA6CA400DDAEED"
-            BuildableName = "mParticle-Localytics.framework"
+            BuildableName = "mParticle_Localytics.framework"
             BlueprintName = "mParticle-Localytics"
             ReferencedContainer = "container:mParticle-Localytics.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E5CAE11E1CEA6CA400DDAEED"
-            BuildableName = "mParticle-Localytics.framework"
+            BuildableName = "mParticle_Localytics.framework"
             BlueprintName = "mParticle-Localytics"
             ReferencedContainer = "container:mParticle-Localytics.xcodeproj">
          </BuildableReference>

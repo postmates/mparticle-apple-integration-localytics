@@ -1,5 +1,5 @@
 //
-//  mParticle-Localytics.h
+//  mParticle_Localytics.h
 //  mParticle-Localytics
 //
 //  Created by Sid Raval on 5/16/16.
@@ -17,4 +17,3 @@ FOUNDATION_EXPORT const unsigned char mParticle_LocalyticsVersionString[];
 // In this header, you should import all the public headers of your framework using statements like #import <mParticle_Localytics/PublicHeader.h>
 
 #import <mParticle_Localytics/MPKitLocalytics.h>
-#import <Localytics.h>

@@ -7,34 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E51951B31CEA6E1D00FA4D39 /* mParticle_Apple_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E51951B21CEA6E1D00FA4D39 /* mParticle_Apple_SDK.framework */; };
+		9E4DF7BB1CF4E6D800339A49 /* mParticle_Apple_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E4DF7BA1CF4E6D800339A49 /* mParticle_Apple_SDK.framework */; };
+		9E4DF7C21CF4E72000339A49 /* libLocalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E4DF7BE1CF4E72000339A49 /* libLocalytics.a */; };
+		9E4DF7C41CF4E72000339A49 /* Localytics.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E4DF7C01CF4E72000339A49 /* Localytics.h */; };
 		E51951B51CEA6F3B00FA4D39 /* MPKitLocalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = E51951B41CEA6F3B00FA4D39 /* MPKitLocalytics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E51951B71CEA6F4800FA4D39 /* MPKitLocalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = E51951B61CEA6F4800FA4D39 /* MPKitLocalytics.m */; };
-		E51951B91CEA716700FA4D39 /* Localytics-iOS-3.8.0 in Resources */ = {isa = PBXBuildFile; fileRef = E51951B81CEA716700FA4D39 /* Localytics-iOS-3.8.0 */; };
 		E51951BB1CEA719500FA4D39 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E51951BA1CEA719500FA4D39 /* AdSupport.framework */; };
 		E51951BD1CEA71A300FA4D39 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E51951BC1CEA71A300FA4D39 /* libsqlite3.tbd */; };
 		E51951BF1CEA71B100FA4D39 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E51951BE1CEA71B100FA4D39 /* libz.tbd */; };
 		E51951C11CEA71B900FA4D39 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E51951C01CEA71B900FA4D39 /* CoreLocation.framework */; };
 		E51951C31CEA71C300FA4D39 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E51951C21CEA71C300FA4D39 /* SystemConfiguration.framework */; };
-		E51951C71CEA73D100FA4D39 /* Localytics.h in Headers */ = {isa = PBXBuildFile; fileRef = E51951C61CEA73D100FA4D39 /* Localytics.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E51951C91CEA73F000FA4D39 /* libLocalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E51951C81CEA73F000FA4D39 /* libLocalytics.a */; };
-		E5CAE1231CEA6CA400DDAEED /* mParticle-Localytics.h in Headers */ = {isa = PBXBuildFile; fileRef = E5CAE1221CEA6CA400DDAEED /* mParticle-Localytics.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E5CAE1231CEA6CA400DDAEED /* mParticle_Localytics.h in Headers */ = {isa = PBXBuildFile; fileRef = E5CAE1221CEA6CA400DDAEED /* mParticle_Localytics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E51951B21CEA6E1D00FA4D39 /* mParticle_Apple_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = mParticle_Apple_SDK.framework; path = "Carthage/Checkouts/mparticle-apple-sdk/build/Debug-iphoneos/mParticle_Apple_SDK.framework"; sourceTree = "<group>"; };
+		9E4DF7BA1CF4E6D800339A49 /* mParticle_Apple_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = mParticle_Apple_SDK.framework; path = Carthage/Build/iOS/mParticle_Apple_SDK.framework; sourceTree = "<group>"; };
+		9E4DF7BD1CF4E72000339A49 /* iOSa_3.8.0.version */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iOSa_3.8.0.version; sourceTree = "<group>"; };
+		9E4DF7BE1CF4E72000339A49 /* libLocalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libLocalytics.a; sourceTree = "<group>"; };
+		9E4DF7BF1CF4E72000339A49 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		9E4DF7C01CF4E72000339A49 /* Localytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Localytics.h; sourceTree = "<group>"; };
 		E51951B41CEA6F3B00FA4D39 /* MPKitLocalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPKitLocalytics.h; sourceTree = "<group>"; };
 		E51951B61CEA6F4800FA4D39 /* MPKitLocalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPKitLocalytics.m; sourceTree = "<group>"; };
-		E51951B81CEA716700FA4D39 /* Localytics-iOS-3.8.0 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Localytics-iOS-3.8.0"; sourceTree = "<group>"; };
 		E51951BA1CEA719500FA4D39 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		E51951BC1CEA71A300FA4D39 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		E51951BE1CEA71B100FA4D39 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		E51951C01CEA71B900FA4D39 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E51951C21CEA71C300FA4D39 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		E51951C61CEA73D100FA4D39 /* Localytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Localytics.h; path = "Localytics-iOS-3.8.0/Localytics.h"; sourceTree = "<group>"; };
-		E51951C81CEA73F000FA4D39 /* libLocalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libLocalytics.a; path = "Localytics-iOS-3.8.0/libLocalytics.a"; sourceTree = "<group>"; };
 		E5CAE11F1CEA6CA400DDAEED /* mParticle_Localytics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = mParticle_Localytics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E5CAE1221CEA6CA400DDAEED /* mParticle-Localytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mParticle-Localytics.h"; sourceTree = "<group>"; };
+		E5CAE1221CEA6CA400DDAEED /* mParticle_Localytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mParticle_Localytics.h; sourceTree = "<group>"; };
 		E5CAE1241CEA6CA400DDAEED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -47,27 +47,36 @@
 				E51951C11CEA71B900FA4D39 /* CoreLocation.framework in Frameworks */,
 				E51951BF1CEA71B100FA4D39 /* libz.tbd in Frameworks */,
 				E51951BD1CEA71A300FA4D39 /* libsqlite3.tbd in Frameworks */,
+				9E4DF7BB1CF4E6D800339A49 /* mParticle_Apple_SDK.framework in Frameworks */,
+				9E4DF7C21CF4E72000339A49 /* libLocalytics.a in Frameworks */,
 				E51951BB1CEA719500FA4D39 /* AdSupport.framework in Frameworks */,
-				E51951B31CEA6E1D00FA4D39 /* mParticle_Apple_SDK.framework in Frameworks */,
-				E51951C91CEA73F000FA4D39 /* libLocalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E4DF7BC1CF4E72000339A49 /* Localytics-iOS-3.8.0 */ = {
+			isa = PBXGroup;
+			children = (
+				9E4DF7BD1CF4E72000339A49 /* iOSa_3.8.0.version */,
+				9E4DF7BE1CF4E72000339A49 /* libLocalytics.a */,
+				9E4DF7BF1CF4E72000339A49 /* LICENSE */,
+				9E4DF7C01CF4E72000339A49 /* Localytics.h */,
+			);
+			path = "Localytics-iOS-3.8.0";
+			sourceTree = "<group>";
+		};
 		E5CAE1151CEA6CA400DDAEED = {
 			isa = PBXGroup;
 			children = (
-				E51951C81CEA73F000FA4D39 /* libLocalytics.a */,
-				E51951C61CEA73D100FA4D39 /* Localytics.h */,
 				E51951C21CEA71C300FA4D39 /* SystemConfiguration.framework */,
 				E51951C01CEA71B900FA4D39 /* CoreLocation.framework */,
 				E51951BE1CEA71B100FA4D39 /* libz.tbd */,
 				E51951BC1CEA71A300FA4D39 /* libsqlite3.tbd */,
 				E51951BA1CEA719500FA4D39 /* AdSupport.framework */,
-				E51951B21CEA6E1D00FA4D39 /* mParticle_Apple_SDK.framework */,
-				E51951B81CEA716700FA4D39 /* Localytics-iOS-3.8.0 */,
+				9E4DF7BA1CF4E6D800339A49 /* mParticle_Apple_SDK.framework */,
+				9E4DF7BC1CF4E72000339A49 /* Localytics-iOS-3.8.0 */,
 				E5CAE1211CEA6CA400DDAEED /* mParticle-Localytics */,
 				E5CAE1201CEA6CA400DDAEED /* Products */,
 			);
@@ -86,7 +95,7 @@
 			children = (
 				E51951B41CEA6F3B00FA4D39 /* MPKitLocalytics.h */,
 				E51951B61CEA6F4800FA4D39 /* MPKitLocalytics.m */,
-				E5CAE1221CEA6CA400DDAEED /* mParticle-Localytics.h */,
+				E5CAE1221CEA6CA400DDAEED /* mParticle_Localytics.h */,
 				E5CAE1241CEA6CA400DDAEED /* Info.plist */,
 			);
 			path = "mParticle-Localytics";
@@ -99,8 +108,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5CAE1231CEA6CA400DDAEED /* mParticle-Localytics.h in Headers */,
-				E51951C71CEA73D100FA4D39 /* Localytics.h in Headers */,
+				E5CAE1231CEA6CA400DDAEED /* mParticle_Localytics.h in Headers */,
+				9E4DF7C41CF4E72000339A49 /* Localytics.h in Headers */,
 				E51951B51CEA6F3B00FA4D39 /* MPKitLocalytics.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -162,7 +171,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E51951B91CEA716700FA4D39 /* Localytics-iOS-3.8.0 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,7 +290,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Checkouts/mparticle-apple-sdk/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "mParticle-Localytics/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -306,7 +314,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Checkouts/mparticle-apple-sdk/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "mParticle-Localytics/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

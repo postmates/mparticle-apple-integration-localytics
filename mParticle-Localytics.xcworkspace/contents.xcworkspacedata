@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Carthage/Checkouts/mparticle-apple-sdk/mParticle-Apple-SDK.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "container:mParticle-Localytics.xcodeproj">
    </FileRef>
 </Workspace>
