@@ -104,10 +104,20 @@
     return self;
 }
 
+- (void)dealloc {
+    if (_started) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    }    
+}
+
 - (void)start {
-    [Localytics autoIntegrate:self.configuration[@"appKey"] launchOptions:self.launchOptions];
+    [Localytics integrate:self.configuration[@"appKey"]];
+    if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
+        [Localytics openSession];
+    }
 
     _started = YES;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         NSDictionary *userInfo = @{mParticleKitInstanceKey:[[self class] kitCode]};
@@ -120,13 +130,7 @@
 
 - (MPKitExecStatus *)beginSession {
     [Localytics openSession];
-
-    MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceLocalytics) returnCode:MPKitReturnCodeSuccess];
-    return execStatus;
-}
-
-- (MPKitExecStatus *)endSession {
-    [Localytics closeSession];
+    [Localytics upload];
 
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceLocalytics) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
@@ -284,6 +288,18 @@
 
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceLocalytics) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
+}
+
+- (MPKitExecStatus *)openURL:(NSURL *)url options:(NSDictionary<NSString *, id> *)options {
+    MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceLocalytics) returnCode:MPKitReturnCodeSuccess];
+    [Localytics handleTestModeURL:url];
+    return execStatus;
+}
+
+- (void)didEnterBackground:(NSNotification *)notification {
+    [Localytics dismissCurrentInAppMessage];
+    [Localytics closeSession];
+    [Localytics upload];
 }
 
 @end
