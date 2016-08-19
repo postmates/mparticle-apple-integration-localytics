@@ -1,1 +1,2 @@
-github "mparticle/mparticle-apple-sdk" "6.0.7"
+github "postmates/Localytics-iOS-redist" "bf8f6da25463ebf139da7fd114f47e0af7883cf6"
+github "mparticle/mparticle-apple-sdk" "6.6.1"

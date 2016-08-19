@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
     s.ios.deployment_target = "7.0"
     s.ios.source_files      = 'mParticle-Localytics/*.{h,m,mm}'
     s.ios.dependency 'mParticle-Apple-SDK/mParticle', '~> 6.0'
-    s.ios.dependency 'Localytics', '3.8.0'
+    s.ios.dependency 'Localytics', '4.0.1'
     s.frameworks = 'SystemConfiguration', 'CoreLocation', 'AdSupport'
     s.library = 'z', 'sqlite3'
 

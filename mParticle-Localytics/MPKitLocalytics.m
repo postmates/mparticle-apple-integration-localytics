@@ -31,7 +31,7 @@
     #import "MPKitRegister.h"
 #endif
 
-#import "Localytics.h"
+@import Localytics;
 
 @interface MPKitLocalytics() {
     BOOL multiplyByOneHundred;
@@ -207,7 +207,7 @@
 }
 
 - (MPKitExecStatus *)receivedUserNotification:(NSDictionary *)userInfo {
-    [Localytics handlePushNotificationOpened:userInfo];
+    [Localytics handleNotification:userInfo];
 
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceLocalytics) returnCode:MPKitReturnCodeSuccess];
     return execStatus;
